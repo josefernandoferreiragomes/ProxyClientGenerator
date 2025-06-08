@@ -1,0 +1,15 @@
+{
+  "runtime": "Net60",
+  "swaggerGenerator": {
+    "fromSwagger": {
+      "url": "https://localhost:7217/swagger/v1/swagger.json"
+    }
+  },
+  "codeGenerators": {
+    "openApiToCSharpClient": {
+      "className": "DemoApiClient",
+      "namespace": "DemoClient.ApiProxies",
+      "output": "DemoClient/GeneratedApiClient.cs"
+    }
+  }
+}
