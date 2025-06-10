@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiServer", "ApiServer\ApiS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceDefaults", "ServiceDefaults\ServiceDefaults.csproj", "{896A2A51-EEBA-4D4F-9499-D4D3EAE56481}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoapServer", "SoapServer\SoapServer.csproj", "{C4F9834F-AD92-4ECD-84A5-9771146528F2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoapServer", "SoapServer\SoapServer.csproj", "{0C78624E-8D97-4DC6-94A5-A3D323F489D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{896A2A51-EEBA-4D4F-9499-D4D3EAE56481}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{896A2A51-EEBA-4D4F-9499-D4D3EAE56481}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{896A2A51-EEBA-4D4F-9499-D4D3EAE56481}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C4F9834F-AD92-4ECD-84A5-9771146528F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C4F9834F-AD92-4ECD-84A5-9771146528F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C4F9834F-AD92-4ECD-84A5-9771146528F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C4F9834F-AD92-4ECD-84A5-9771146528F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C78624E-8D97-4DC6-94A5-A3D323F489D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C78624E-8D97-4DC6-94A5-A3D323F489D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C78624E-8D97-4DC6-94A5-A3D323F489D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C78624E-8D97-4DC6-94A5-A3D323F489D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
