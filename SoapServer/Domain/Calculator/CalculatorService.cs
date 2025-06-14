@@ -1,60 +1,52 @@
 ﻿using SoapServer.Domain.Base;
+using System.Text.Json;
 
 namespace SoapServer.Domain.Calculator;
 
 [ServiceBehavior(IncludeExceptionDetailInFaults = true)]
 public class CalculatorService : ICalculator
 {
-    
-    //private readonly ILogger _logger;
-
-    //public CalculatorService(ILogger<CalculatorService> logger)
-    //{
-    //    _logger = logger;
-    //    logger.LogInformation("CalculatorService instantiated");
-    //}
 
     public int Add(int a, int b)
-    {  
-        return a + b; 
-    }
+        => a + b; 
         
-
     public SumListResponse SumList(SumListRequest request)
     {
         // Validate and log before executing the actual method
-        ValidateAndLog<SumListRequest, SumListResponse>(SumListProcess, request);
+        var result = ValidateAndLog<SumListRequest, SumListResponse>(SumListProcess, request);
 
-        return SumList(request);
+        return result;
     }
     private SumListResponse SumListProcess(SumListRequest request)
     {
-        //_logger.LogInformation("SumList method called with request: {@Request}", request);
+        Console.WriteLine(string.Format("SumList method called with request: {0}", JsonSerializer.Serialize<SumListRequest>(request)));
         int sum = 0;
         
         sum = request?.Numbers.Sum() ?? 0;
 
-        //_logger.LogInformation($"SumList calculated sum: {sum}");
+        Console.WriteLine($"SumList calculated sum: {sum}");
         return new SumListResponse { Sum = sum };
     }
 
-    public void ValidateAndLog<TRequest, TResponse>(
+    public TResponse ValidateAndLog<TRequest, TResponse>(
         Func<TRequest, TResponse> method,
         TRequest request
     )
     {
         if (request == null)
         {
-            //_logger.LogWarning("Validation failed: request is null or empty");
+            Console.WriteLine("Validation failed: request is null or empty");
             throw new ArgumentException("Request cannot be null or empty", nameof(request));
         }
         //log request details as json
-        //_logger.LogInformation("Validating request: {@Request}", request);
+        Console.WriteLine(string.Format("Validating request: {0}", JsonSerializer.Serialize<TRequest>(request)));
 
-        //_logger.LogInformation("Validation passed, proceeding with method execution");
+        Console.WriteLine("Validation passed, proceeding with method execution");
         var response = method(request);
         // log response details as json
-        //_logger.LogInformation("Validating request: {@Response}", response);
+        Console.WriteLine(string.Format("Validating request: {0}", JsonSerializer.Serialize<TResponse>(response)));
+
+        return response;
     }
 
 }

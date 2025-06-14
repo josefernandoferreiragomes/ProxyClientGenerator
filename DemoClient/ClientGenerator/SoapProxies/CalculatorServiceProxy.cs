@@ -14,16 +14,8 @@ namespace DemoClient.SoapProxies
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BaseRequest", Namespace="http://schemas.datacontract.org/2004/07/SoapServer.Domain.Base")]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DemoClient.SoapProxies.SumListRequest))]
-    public partial class BaseRequest : object
-    {
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="SumListRequest", Namespace="http://schemas.datacontract.org/2004/07/SoapServer.Domain.Calculator")]
-    public partial class SumListRequest : DemoClient.SoapProxies.BaseRequest
+    public partial class SumListRequest : object
     {
         
         private int[] NumbersField;
@@ -44,9 +36,45 @@ namespace DemoClient.SoapProxies
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BaseResponse", Namespace="http://schemas.datacontract.org/2004/07/SoapServer.Domain.Base")]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DemoClient.SoapProxies.SumListResponse))]
-    public partial class BaseResponse : object
+    [System.Runtime.Serialization.DataContractAttribute(Name="SumListResponse", Namespace="http://schemas.datacontract.org/2004/07/SoapServer.Domain.Calculator")]
+    public partial class SumListResponse : object
+    {
+        
+        private int SumField;
+        
+        private DemoClient.SoapProxies.ResponseMetadata responseMetadataField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Sum
+        {
+            get
+            {
+                return this.SumField;
+            }
+            set
+            {
+                this.SumField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public DemoClient.SoapProxies.ResponseMetadata responseMetadata
+        {
+            get
+            {
+                return this.responseMetadataField;
+            }
+            set
+            {
+                this.responseMetadataField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ResponseMetadata", Namespace="http://schemas.datacontract.org/2004/07/SoapServer.Domain.Base")]
+    public partial class ResponseMetadata : object
     {
         
         private int ErrorCodeField;
@@ -91,28 +119,6 @@ namespace DemoClient.SoapProxies
             set
             {
                 this.SuccessField = value;
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="SumListResponse", Namespace="http://schemas.datacontract.org/2004/07/SoapServer.Domain.Calculator")]
-    public partial class SumListResponse : DemoClient.SoapProxies.BaseResponse
-    {
-        
-        private int SumField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Sum
-        {
-            get
-            {
-                return this.SumField;
-            }
-            set
-            {
-                this.SumField = value;
             }
         }
     }

@@ -3,7 +3,7 @@
 
 nswag openapi2csclient ^
 /input:https://localhost:7217/swagger/v1/swagger.json ^
-/output:DemoClient\GeneratedApiClient.cs ^
+/output:ApiProxies\GeneratedApiClient.cs ^
 /namespace:DemoClient.ApiProxies
 
 echo Web API client proxy generated.

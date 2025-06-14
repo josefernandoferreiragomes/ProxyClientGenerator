@@ -2,19 +2,10 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace SoapServer
+namespace SoapServer.Domain.DataService
 {
-    [ServiceContract]
-    public interface IService
-    {
-        [OperationContract]
-        string GetData(int value);
 
-        [OperationContract]
-        CompositeType GetDataUsingDataContract(CompositeType composite);
-    }
-
-    public class Service : IService
+    public class DataService : IDataService
     {
         public string GetData(int value)
         {

@@ -106,7 +106,7 @@ dotnet sln add SoapServer/SoapServer.csproj
 
 Reference: https://github.com/CoreWCF/CoreWCF
 
-1. **Add CoreWCF Packages**  
+1. **Add CoreWCF Packages, in case they-re not included already**  
 In **SoapServer**, add the following NuGet packages:
    
    ```cmd
@@ -165,6 +165,8 @@ app.Run();
 
 > **Note:** You can test the SOAP service in a browser or WCF test client by browsing to:  
 > `https://localhost:7296/CalculatorService?wsdl`
+
+!!! Beware there is a glitch in visual studio 2022 when downloading the WSDL definition. Do not use it in debug mode.
 
 ### 2.3. **DemoClient** – Prepare the Client Project
 

@@ -7,6 +7,8 @@ cd SoapProxies
 
 del CalculatorServiceProxy.cs
 
+cd ..
+
 dotnet-svcutil https://localhost:7296/CalculatorService.svc?wsdl ^
   --outputDir "SoapProxies" ^
   --namespace "*,DemoClient.SoapProxies" ^

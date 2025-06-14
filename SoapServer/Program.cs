@@ -1,4 +1,5 @@
 ﻿using SoapServer.Domain.Calculator;
+using SoapServer.Domain.DataService;
 
 var builder = WebApplication.CreateBuilder();
 
@@ -10,8 +11,8 @@ var app = builder.Build();
 
 app.UseServiceModel(serviceBuilder =>
 {
-    serviceBuilder.AddService<Service>();
-    serviceBuilder.AddServiceEndpoint<Service, IService>(new BasicHttpBinding(BasicHttpSecurityMode.Transport), "/Service.svc");
+    serviceBuilder.AddService<DataService>();
+    serviceBuilder.AddServiceEndpoint<DataService, IDataService>(new BasicHttpBinding(BasicHttpSecurityMode.Transport), "/Service.svc");
     
     serviceBuilder.AddService<CalculatorService>();
     serviceBuilder.AddServiceEndpoint<CalculatorService, ICalculator>(new BasicHttpBinding(BasicHttpSecurityMode.Transport), "/CalculatorService.svc");
