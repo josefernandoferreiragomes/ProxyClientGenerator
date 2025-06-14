@@ -2,7 +2,8 @@
 using System.Threading.Tasks;
 // Namespaces based on generated code (adjust as needed)
 using DemoClient.ApiProxies;
-//using DemoClient.SoapProxies;
+using DemoClient.SoapProxies;
+
 using System.ServiceModel; // For WS-* bindings
 Console.WriteLine("Demo Client Starting...");
 Console.WriteLine("Press any key to continue...");
@@ -30,21 +31,21 @@ catch (Exception ex)
 }
 
 // --- Invoke the SOAP service via the generated proxy ---
-//try
-//{
-//    // Here we assume the generated proxy is called "CalculatorServiceClient"
-//    // Create an instance with a BasicHttpBinding and EndpointAddress.
-//    var binding = new BasicHttpBinding();
-//    var endpoint = new EndpointAddress("http://localhost:5001/CalculatorService");
-//    var soapClient = new CalculatorServiceClient(binding, endpoint);
+try
+{
+    // Here we assume the generated proxy is called "CalculatorServiceProxy"
+    // Create an instance with a BasicHttpBinding and EndpointAddress.
+    var binding = new BasicHttpBinding(BasicHttpSecurityMode.Transport);
+    var endpoint = new EndpointAddress("https://localhost:7296/CalculatorService.svc");
+    var soapClient = new DemoClient.SoapProxies.CalculatorClient(binding, endpoint);
 
-//    // Call the Add method (synchronous or asynchronous; adjust depending on generated code)
-//    int sum = await soapClient.AddAsync(3, 5);
-//    Console.WriteLine($"SOAP service result: 3 + 5 = {sum}");
-//}
-//catch (Exception ex)
-//{
-//    Console.WriteLine("Error calling SOAP service: " + ex.Message);
-//}
+    // Call the Add method (synchronous or asynchronous; adjust depending on generated code)
+    int sum = await soapClient.AddAsync(3, 5);
+    Console.WriteLine($"SOAP service result: 3 + 5 = {sum}");
+}
+catch (Exception ex)
+{
+    Console.WriteLine("Error calling SOAP service: " + ex.Message);
+}
 
 Console.WriteLine("Demo Client Completed.");

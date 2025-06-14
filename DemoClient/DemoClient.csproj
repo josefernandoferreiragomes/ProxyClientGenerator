@@ -9,6 +9,11 @@
 
   <ItemGroup>
     <PackageReference Include="newtonsoft.json" Version="13.0.3" />
+    <PackageReference Include="System.ServiceModel.Http" Version="8.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ClientGenerator\SoapProxies\" />
   </ItemGroup>
 
 </Project>

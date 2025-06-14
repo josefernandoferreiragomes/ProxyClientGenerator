@@ -1,5 +1,4 @@
 ﻿using SoapServer.Services.Calculator;
-using SoapServer.Services.Service;
 
 var builder = WebApplication.CreateBuilder();
 
@@ -9,14 +8,15 @@ builder.Services.AddSingleton<IServiceBehavior, UseRequestHeadersForMetadataAddr
 
 var app = builder.Build();
 
+// Add logging middleware before UseServiceModel
+app.Use(async (context, next) =>
+{
+    Console.WriteLine($"[{DateTime.Now}] {context.Request.Method} {context.Request.Path}");
+    await next.Invoke();
+});
+
 app.UseServiceModel(serviceBuilder =>
 {
-    //test it by using SoapServer lauch profie, and pasting the URL in a browser: https://localhost:7296/Service.svc?wsdl
-    serviceBuilder.AddService<Service>();
-    serviceBuilder.AddServiceEndpoint<Service, IService>(
-        new BasicHttpBinding(BasicHttpSecurityMode.Transport),
-        "/Service.svc"
-    );
 
     //test it by using SoapServer lauch profie, and pasting the URL in a browser: https://localhost:7296/CalculatorService.svc?wsdl
     serviceBuilder.AddService<CalculatorService>();

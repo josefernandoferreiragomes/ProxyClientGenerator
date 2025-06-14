@@ -13,6 +13,7 @@
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "applicationUrl": "https://localhost:7296",
+      "launchUrl": "https://localhost:7296/CalculatorService.svc?wsdl",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
