@@ -1,6 +1,6 @@
-﻿using SoapServer.Services.Base;
+﻿using SoapServer.Domain.Base;
 
-namespace SoapServer.Services.Calculator;
+namespace SoapServer.Domain.Calculator;
 public class CalculatorService : ICalculator
 {
     private readonly ILogger _logger;

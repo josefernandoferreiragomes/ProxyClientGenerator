@@ -1,5 +1,5 @@
 ﻿using System.ServiceModel;
-namespace SoapServer.Services.Calculator;
+namespace SoapServer.Domain.Calculator;
 
 [ServiceContract]
 public interface ICalculator

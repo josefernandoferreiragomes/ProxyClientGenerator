@@ -1,10 +1,11 @@
-﻿using SoapServer.Services.Calculator;
+﻿using SoapServer.Domain.Calculator;
 
 var builder = WebApplication.CreateBuilder();
 
 builder.Services.AddServiceModelServices();
 builder.Services.AddServiceModelMetadata();
 builder.Services.AddSingleton<IServiceBehavior, UseRequestHeadersForMetadataAddressBehavior>();
+//builder.Services.AddSingleton<ICalculator,CalculatorService>();
 
 var app = builder.Build();
 
@@ -24,6 +25,7 @@ app.UseServiceModel(serviceBuilder =>
         new BasicHttpBinding(BasicHttpSecurityMode.Transport),
         "/CalculatorService.svc"
     );
+    //.AddEndpointBehavior(new LoggingEndpointBehavior());
 
     var serviceMetadataBehavior = app.Services.GetRequiredService<ServiceMetadataBehavior>();
     serviceMetadataBehavior.HttpsGetEnabled = true;

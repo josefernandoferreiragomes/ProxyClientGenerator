@@ -1,4 +1,4 @@
-﻿namespace SoapServer.Services.Base;
+﻿namespace SoapServer.Domain.Base;
 
 [DataContract]
 public class BaseRequest
