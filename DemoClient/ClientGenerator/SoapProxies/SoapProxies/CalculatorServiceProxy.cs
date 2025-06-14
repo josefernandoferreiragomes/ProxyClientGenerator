@@ -14,7 +14,7 @@ namespace DemoClient.SoapProxies
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BaseRequest", Namespace="http://schemas.datacontract.org/2004/07/SoapServer.Services.Base")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BaseRequest", Namespace="http://schemas.datacontract.org/2004/07/SoapServer.Domain.Base")]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DemoClient.SoapProxies.SumListRequest))]
     public partial class BaseRequest : object
     {
@@ -22,7 +22,7 @@ namespace DemoClient.SoapProxies
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="SumListRequest", Namespace="http://schemas.datacontract.org/2004/07/SoapServer.Services.Calculator")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="SumListRequest", Namespace="http://schemas.datacontract.org/2004/07/SoapServer.Domain.Calculator")]
     public partial class SumListRequest : DemoClient.SoapProxies.BaseRequest
     {
         
@@ -44,7 +44,7 @@ namespace DemoClient.SoapProxies
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BaseResponse", Namespace="http://schemas.datacontract.org/2004/07/SoapServer.Services.Base")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BaseResponse", Namespace="http://schemas.datacontract.org/2004/07/SoapServer.Domain.Base")]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DemoClient.SoapProxies.SumListResponse))]
     public partial class BaseResponse : object
     {
@@ -97,7 +97,7 @@ namespace DemoClient.SoapProxies
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="SumListResponse", Namespace="http://schemas.datacontract.org/2004/07/SoapServer.Services.Calculator")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="SumListResponse", Namespace="http://schemas.datacontract.org/2004/07/SoapServer.Domain.Calculator")]
     public partial class SumListResponse : DemoClient.SoapProxies.BaseResponse
     {
         

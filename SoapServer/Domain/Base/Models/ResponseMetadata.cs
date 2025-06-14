@@ -1,7 +1,7 @@
 ﻿namespace SoapServer.Domain.Base;
 
 [DataContract]
-public class BaseResponse
+public class ResponseMetadata
 {
     [DataMember]
     public bool Success { get; set; } = true;
