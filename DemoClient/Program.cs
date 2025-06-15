@@ -18,7 +18,8 @@ try
     HttpClient httpClient = new HttpClient();
 
     var apiClient = new Client("https://localhost:7217", httpClient);
-    var values = await apiClient.GetWeatherForecastAsync(); // or your specific API method
+    var request = new WeatherForecastRequest() { StartDate = DateTime.Now };
+    var values = await apiClient.GetWeatherForecastAsync(request); // or your specific API method
     Console.WriteLine("REST API call results:");
     foreach (var value in values)
     {
