@@ -22,7 +22,7 @@ try
     Console.WriteLine("REST API call results:");
     foreach (var value in values)
     {
-        Console.WriteLine(value);
+        Console.WriteLine(value.Summary);
     }
 }
 catch (Exception ex)
