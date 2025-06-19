@@ -302,7 +302,16 @@ Console.WriteLine("Demo Client Completed.");
 3. **Test the Client:**
    - Build and run **DemoClient**. You should see output from both the REST API call and the SOAP service call.
 
-## 6. Additional Customizations
+## 6. References
+
+[NSwag documentation](https://github.com/RicoSuter/NSwag) [Microsoft Learn](https://learn.microsoft.com/en-us/dotnet/core/additional-tools/nswag-guide).
+
+[Microsoft Learn](https://learn.microsoft.com/en-us/dotnet/core/additional-tools/dotnet-svcutil-guide)
+
+[GitHub repository](https://github.com/dotnet/docs/blob/main/docs/core/additional-tools/dotnet-svcutil-guide.md)
+
+
+## 7. Additional Customizations
 
 - **Authentication Headers:**  
   To pass authentication information when generating the API client, add a `/headers` parameter to the NSwag command (e.g., `/headers:"Authorization=Bearer YOUR_TOKEN"`).
