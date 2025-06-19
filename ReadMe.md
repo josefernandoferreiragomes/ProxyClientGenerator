@@ -71,7 +71,8 @@ if (app.Environment.IsDevelopment())
 ```
 
 > **Tip:** The default Web API template often includes a WeatherForecast endpoint. You may use it or add your own controllers.
-> The example project uses a Fun delegate to centralize logging, and request response pattern, as a customizations example.
+
+> The example project uses a Func delegate to centralize logging, and request response pattern, as a customization example.
 
 ### 2.2. **SoapServer** – Create a Simple SOAP Service Using CoreWCF
 
@@ -154,7 +155,8 @@ app.Run();
 
 > **Note:** You can test the SOAP service in a browser or WCF test client by browsing to:  
 > `https://localhost:7296/CalculatorService?wsdl`
-> The example project uses a Fun delegate to centralize logging, and request response pattern, as a customizations example.
+
+> The example project uses a Func delegate to centralize logging, and request response pattern, as a customization example.
 
 !!! Beware there is a glitch in visual studio 2022 when downloading the WSDL definition. Do not use it in debug mode.
 
