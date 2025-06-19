@@ -1,4 +1,3 @@
----
 # Walkthrough 
 Demonstration of a .NET solution that shows how to use command scripts to generate both REST API proxies (using NSwag) and SOAP service proxies (using the .NET Core version of SvcUtil) for a server–client scenario. 
 
@@ -19,13 +18,11 @@ This demo creates a .NET solution with:
 > - **NSwag** commands for generating a REST client proxy, and  
 > - **dotnet-svcutil** commands for generating a SOAP proxy.
 
----
-
 ## 1. Create the .NET Solution and Projects
 
 Open a terminal (or PowerShell) and run the following commands:
 
-```cmd
+```bash
 :: Create the solution
 dotnet new sln -n DemoProxies
 
@@ -39,12 +36,10 @@ dotnet new console -n DemoClient
 
 Then add all projects to the solution:
 
-```cmd
+```bash
 dotnet sln add ApiServer/ApiServer.csproj
 dotnet sln add DemoClient/DemoClient.csproj
 ```
-
----
 
 ## 2. Set Up the Projects
 
@@ -106,7 +101,7 @@ Reference: https://github.com/CoreWCF/CoreWCF
 1. **Add CoreWCF Packages, in case they-re not included already**  
 In **SoapServer**, add the following NuGet packages:
    
-   ```cmd
+   ```bash
    dotnet add SoapServer package CoreWCF
    dotnet add SoapServer package CoreWCF.Http
    dotnet add SoapServer package CoreWCF.Primitives
@@ -169,8 +164,6 @@ app.Run();
 
 In **DemoClient**, you will later add the generated code files. In the meantime, you can create a basic `Program.cs` to test the proxies.
 
----
-
 ## 3. Create Command Files to Generate Proxies
 
 ### 3.1. Generate the Web API Client Proxy Using NSwag
@@ -214,8 +207,6 @@ pause
 
 > **Before running this command:**  
 > • Start **SoapServer** so that its WSDL is accessible at the URL provided.
-
----
 
 ## 4. Consume the Generated Proxies in the Client Application
 
@@ -288,8 +279,6 @@ class Program
 
 > **Important:** The names of the generated classes and their methods depend on the specific Swagger and WSDL definitions. Adjust the code accordingly if they differ.
 
----
-
 ## 5. Running the Demo
 
 1. **Start the Servers:**
@@ -302,8 +291,6 @@ class Program
 
 3. **Test the Client:**
    - Build and run **DemoClient**. You should see output from both the REST API call and the SOAP service call.
-
----
 
 ## 6. Additional Customizations
 
@@ -324,7 +311,4 @@ class Program
   pause
   ```
 
----
-
 By following these steps, you now have a demonstration app that illustrates how to use command-line scripts to generate both API and web service proxies and consume them from a client project.
-```
