@@ -1,16 +1,13 @@
 ---
 # Walkthrough 
-Demonstration of a .NET solution that shows how to use command scripts to generate both REST API proxies (using NSwag) and SOAP service proxies (using the .NET Core version of SvcUtil) for a server–client scenario. In this demo, we create three projects:
+Demonstration of a .NET solution that shows how to use command scripts to generate both REST API proxies (using NSwag) and SOAP service proxies (using the .NET Core version of SvcUtil) for a serverâ€“client scenario. 
 
-- **ApiServer** – an ASP.NET Core Web API with Swagger enabled.
-- **SoapServer** – a simple SOAP service using CoreWCF.
-- **DemoClient** – a Console App that consumes both the generated API client and SOAP service proxy.
+In this demo, we create three projects:
 
-Feel free to follow (or adapt) these steps.
+- **ApiServer** â€“ an ASP.NET Core Web API with Swagger enabled.
+- **SoapServer** â€“ a simple SOAP service using CoreWCF.
+- **DemoClient** â€“ a Console App that consumes both the generated API client and SOAP service proxy.
 
----
-
-```md
 # Demo: Generating API and SOAP Proxies with .NET
 
 This demo creates a .NET solution with:
@@ -51,7 +48,7 @@ dotnet sln add DemoClient/DemoClient.csproj
 
 ## 2. Set Up the Projects
 
-### 2.1. **ApiServer** – Enable Swagger
+### 2.1. **ApiServer** â€“ Enable Swagger
 
 Open the NuGet Package Manager in Visual Studio or use the Package Manager Console to install the Swashbuckle.AspNetCore package:
 Using Package Manager Console:
@@ -87,7 +84,7 @@ app.Run();
 
 > **Tip:** The default Web API template often includes a WeatherForecast endpoint. You may use it or add your own controllers.
 
-### 2.2. **SoapServer** – Create a Simple SOAP Service Using CoreWCF
+### 2.2. **SoapServer** â€“ Create a Simple SOAP Service Using CoreWCF
 
 Make sure to have Windows Communication Foundation workload installed
 Make sure to have the coreWCF template installed
@@ -159,7 +156,7 @@ app.UseServiceModel(serviceBuilder =>
     );
 });
 
-// Run the SOAP service. By default it will run on Kestrel’s port (e.g., 5001)
+// Run the SOAP service. By default it will run on Kestrelâ€™s port (e.g., 5001)
 app.Run();
 ```
 
@@ -168,7 +165,7 @@ app.Run();
 
 !!! Beware there is a glitch in visual studio 2022 when downloading the WSDL definition. Do not use it in debug mode.
 
-### 2.3. **DemoClient** – Prepare the Client Project
+### 2.3. **DemoClient** â€“ Prepare the Client Project
 
 In **DemoClient**, you will later add the generated code files. In the meantime, you can create a basic `Program.cs` to test the proxies.
 
@@ -178,7 +175,7 @@ In **DemoClient**, you will later add the generated code files. In the meantime,
 
 ### 3.1. Generate the Web API Client Proxy Using NSwag
 
-Create a file named `GenerateApiProxy.cmd` (in the solution folder or in a dedicated “scripts” folder):
+Create a file named `GenerateApiProxy.cmd` (in the solution folder or in a dedicated â€œscriptsâ€ folder):
 
 ```cmd
 @echo off
@@ -194,8 +191,8 @@ pause
 ```
 
 > **Before running this command:**  
-> • Run **ApiServer** so that the swagger.json is available at the specified URL (adjust the port if needed).  
-> • Ensure NSwag CLI is installed (or use the NSwag Studio tool).
+> â€¢ Run **ApiServer** so that the swagger.json is available at the specified URL (adjust the port if needed).  
+> â€¢ Ensure NSwag CLI is installed (or use the NSwag Studio tool).
 
 ---
 
@@ -216,7 +213,7 @@ pause
 ```
 
 > **Before running this command:**  
-> • Start **SoapServer** so that its WSDL is accessible at the URL provided.
+> â€¢ Start **SoapServer** so that its WSDL is accessible at the URL provided.
 
 ---
 
@@ -232,7 +229,7 @@ After running the command files, the **DemoClient** project will contain:
 - A file named `GeneratedApiClient.cs` (from NSwag) in the namespace `DemoClient.ApiProxies`.
 - A generated SOAP proxy (e.g., a class like `CalculatorServiceClient`) in the namespace `DemoClient.SoapProxies`.
 
-Now, update **DemoClient**’s `Program.cs` to use these proxies. For example:
+Now, update **DemoClient**â€™s `Program.cs` to use these proxies. For example:
 
 ```csharp
 using System;
