@@ -28,9 +28,9 @@ namespace ApiServer.RequestProcessors.Forecast
         }
         //new delegate method, to centralize logging for each internal method
         public TResponse ValidateAndLog<TRequest, TResponse>(
-        Func<TRequest, TResponse> method,
-        TRequest request
-    )
+            Func<TRequest, TResponse> method,
+            TRequest request
+        )
         {
             if (request == null)
             {
