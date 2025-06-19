@@ -1,16 +1,12 @@
----
 # Walkthrough 
-Demonstration of a .NET solution that shows how to use command scripts to generate both REST API proxies (using NSwag) and SOAP service proxies (using the .NET Core version of SvcUtil) for a server–client scenario. In this demo, we create three projects:
+Demonstration of a .NET solution that shows how to use command scripts to generate both REST API proxies (using NSwag) and SOAP service proxies (using the .NET Core version of SvcUtil) for a serverâ€“client scenario. 
 
-- **ApiServer** – an ASP.NET Core Web API with Swagger enabled.
-- **SoapServer** – a simple SOAP service using CoreWCF.
-- **DemoClient** – a Console App that consumes both the generated API client and SOAP service proxy.
+In this demo, we create three projects:
 
-Feel free to follow (or adapt) these steps.
+- **ApiServer** â€“ an ASP.NET Core Web API with Swagger enabled.
+- **SoapServer** â€“ a simple SOAP service using CoreWCF.
+- **DemoClient** â€“ a Console App that consumes both the generated API client and SOAP service proxy.
 
----
-
-```md
 # Demo: Generating API and SOAP Proxies with .NET
 
 This demo creates a .NET solution with:
@@ -22,36 +18,26 @@ This demo creates a .NET solution with:
 > - **NSwag** commands for generating a REST client proxy, and  
 > - **dotnet-svcutil** commands for generating a SOAP proxy.
 
----
-
 ## 1. Create the .NET Solution and Projects
 
-Open a terminal (or PowerShell) and run the following commands:
+Create the Web API server Web API project, using the minimal API template, named **ApiServer**
 
-```cmd
-:: Create the solution
-dotnet new sln -n DemoProxies
+Name the solution **DemoProxies**
 
-:: Create the Web API server (ApiServer)
-dotnet new webapi -n ApiServer
-
-:: Create the console client project (DemoClient)
+Create the console client project, named **DemoClient**. It can be done using the console project template, or the command:
+```bash
 dotnet new console -n DemoClient
-
 ```
 
-Then add all projects to the solution:
-
-```cmd
-dotnet sln add ApiServer/ApiServer.csproj
+Make sure all projects are included in the solution:
+If you prefer, add any missing project using the command line, for example:
+```bash
 dotnet sln add DemoClient/DemoClient.csproj
 ```
 
----
-
 ## 2. Set Up the Projects
 
-### 2.1. **ApiServer** – Enable Swagger
+### 2.1. **ApiServer** â€“ Enable Swagger
 
 Open the NuGet Package Manager in Visual Studio or use the Package Manager Console to install the Swashbuckle.AspNetCore package:
 Using Package Manager Console:
@@ -68,9 +54,10 @@ Open the `Program.cs` file in **ApiServer** and ensure Swagger is configured. Fo
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();  // (Enables Swagger)
+
+// Dependency injection...
 
 var app = builder.Build();
 
@@ -80,26 +67,25 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseAuthorization();
-app.MapControllers();
-app.Run();
+// Endpoints...
 ```
 
 > **Tip:** The default Web API template often includes a WeatherForecast endpoint. You may use it or add your own controllers.
+> The example project uses a Fun delegate to centralize logging, and request response pattern, as a customizations example.
 
-### 2.2. **SoapServer** – Create a Simple SOAP Service Using CoreWCF
+### 2.2. **SoapServer** â€“ Create a Simple SOAP Service Using CoreWCF
 
 Make sure to have Windows Communication Foundation workload installed
 Make sure to have the coreWCF template installed
 ```bash
 dotnet new install CoreWCF.Templates
 ```
-New project
+Create a new project named **SoapServer** inside the solution, using the CoreWcf template, or using the command line:
 ```bash
-dotnet new corewcf --name MyService
+dotnet new corewcf --name SoapServer
 ```
 
-Add project to solution
+Add project to solution, if not already included
 ```bash
 dotnet sln add SoapServer/SoapServer.csproj
 ```
@@ -109,93 +95,95 @@ Reference: https://github.com/CoreWCF/CoreWCF
 1. **Add CoreWCF Packages, in case they-re not included already**  
 In **SoapServer**, add the following NuGet packages:
    
-   ```cmd
-   dotnet add SoapServer package CoreWCF
-   dotnet add SoapServer package CoreWCF.Http
-   dotnet add SoapServer package CoreWCF.Primitives
+```bash
+dotnet add SoapServer package CoreWCF.Http
+dotnet add SoapServer package CoreWCF.Primitives
+```
 
-   ```
-
-2. **Define the Service Contract and Implementation**  
-In the **SoapServer** project, add a new file `ICalculator.cs`:
+2. **Define the Service Contract and Implementation**, following service request and response pattern  
+In the **SoapServer** project, add a new file `ICalculatorService.cs`:
 
 ```csharp
 using System.ServiceModel;
 
 [ServiceContract]
-public interface ICalculator
+public interface ICalculatorService
 {
     [OperationContract]
     int Add(int a, int b);
+
+    //Other operations ...
 }
 ```
 
 Then add a file `CalculatorService.cs`:
 
 ```csharp
-public class CalculatorService : ICalculator
+public class CalculatorService : ICalculatorService
 {
     public int Add(int a, int b) => a + b;
+
+    //Other metods ...
 }
 ```
 
 3. **Configure the SOAP Endpoint**  
-Replace the content of `Program.cs` in **SoapServer** with the following code:
+Make sure **SoapServer** includes the following code:
 
 ```csharp
-using CoreWCF;
-using CoreWCF.Configuration;
-using CoreWCF.Description;  // For service behaviors if needed
+var builder = WebApplication.CreateBuilder();
 
-var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddServiceModelServices();
+builder.Services.AddServiceModelMetadata();
+
+// Dependency injection
+
 var app = builder.Build();
 
 app.UseServiceModel(serviceBuilder =>
 {
-    serviceBuilder.AddService<CalculatorService>();
-    serviceBuilder.AddServiceEndpoint<CalculatorService, ICalculator>(
-        new BasicHttpBinding(),
-        "/CalculatorService"
-    );
+    // Service Endpoints
+    
+    var serviceMetadataBehavior = app.Services.GetRequiredService<ServiceMetadataBehavior>();
+    serviceMetadataBehavior.HttpsGetEnabled = true;
 });
 
-// Run the SOAP service. By default it will run on Kestrel’s port (e.g., 5001)
+// Run the SOAP service. By default it will run on Kestrelâ€™s port (e.g., 5001)
 app.Run();
 ```
 
 > **Note:** You can test the SOAP service in a browser or WCF test client by browsing to:  
 > `https://localhost:7296/CalculatorService?wsdl`
+> The example project uses a Fun delegate to centralize logging, and request response pattern, as a customizations example.
 
 !!! Beware there is a glitch in visual studio 2022 when downloading the WSDL definition. Do not use it in debug mode.
 
-### 2.3. **DemoClient** – Prepare the Client Project
+### 2.3. **DemoClient** â€“ Prepare the Client Project
 
 In **DemoClient**, you will later add the generated code files. In the meantime, you can create a basic `Program.cs` to test the proxies.
-
----
 
 ## 3. Create Command Files to Generate Proxies
 
 ### 3.1. Generate the Web API Client Proxy Using NSwag
 
-Create a file named `GenerateApiProxy.cmd` (in the solution folder or in a dedicated “scripts” folder):
+Create a file named `GenerateApiProxy.cmd` (in the solution folder or in a dedicated â€œscriptsâ€ folder):
 
 ```cmd
 @echo off
 :: This command uses NSwag CLI to generate a C# client from the ApiServer Swagger spec.
-nswag run /command:swagger2csclient ^
-  /input:"http://localhost:5000/swagger/v1/swagger.json" ^
-  /output:"DemoClient\GeneratedApiClient.cs" ^
-  /language:CSharp ^
-  /namespace:DemoClient.ApiProxies
+
+nswag openapi2csclient ^
+/input:https://localhost:7217/swagger/v1/swagger.json ^
+/output:ApiProxies\GeneratedApiClient.cs ^
+/namespace:DemoClient.ApiProxies
 
 echo Web API client proxy generated.
 pause
 ```
 
 > **Before running this command:**  
-> • Run **ApiServer** so that the swagger.json is available at the specified URL (adjust the port if needed).  
-> • Ensure NSwag CLI is installed (or use the NSwag Studio tool).
+> â€¢ Run **ApiServer** so that the swagger.json is available at the specified URL (adjust the port if needed).  
+> â€¢ Ensure NSwag CLI is installed (or use the NSwag Studio tool).
 
 ---
 
@@ -206,19 +194,29 @@ Create a file named `GenerateSoapProxy.cmd`:
 ```cmd
 @echo off
 :: This command uses dotnet-svcutil to generate a SOAP client proxy from the CalculatorService WSDL.
-dotnet-svcutil http://localhost:5001/CalculatorService?wsdl ^
-  --outputDir "DemoClient" ^
-  --namespace "DemoClient.SoapProxies" ^
-  --targetFramework net8.0
+
+echo Deleting old file
+
+cd SoapProxies
+
+del CalculatorServiceProxy.cs
+
+cd ..
+
+dotnet-svcutil https://localhost:7296/CalculatorService.svc?wsdl ^
+  --outputDir "SoapProxies" ^
+  --namespace "*,DemoClient.SoapProxies" ^
+  --targetFramework net8.0 ^
+  --outputFile "CalculatorServiceProxy.cs"
 
 echo SOAP client proxy generated.
 pause
 ```
 
-> **Before running this command:**  
-> • Start **SoapServer** so that its WSDL is accessible at the URL provided.
+The file includes additional commands, because dotnet-svcutil does not replace the existing file
 
----
+> **Before running this command:**  
+> â€¢ Start **SoapServer** so that its WSDL is accessible at the URL provided.
 
 ## 4. Consume the Generated Proxies in the Client Application
 
@@ -232,7 +230,7 @@ After running the command files, the **DemoClient** project will contain:
 - A file named `GeneratedApiClient.cs` (from NSwag) in the namespace `DemoClient.ApiProxies`.
 - A generated SOAP proxy (e.g., a class like `CalculatorServiceClient`) in the namespace `DemoClient.SoapProxies`.
 
-Now, update **DemoClient**’s `Program.cs` to use these proxies. For example:
+Now, update **DemoClient**â€™s `Program.cs` to use these proxies. For example:
 
 ```csharp
 using System;
@@ -240,58 +238,56 @@ using System.Threading.Tasks;
 // Namespaces based on generated code (adjust as needed)
 using DemoClient.ApiProxies;
 using DemoClient.SoapProxies;
+
 using System.ServiceModel; // For WS-* bindings
-
-class Program
+Console.WriteLine("Demo Client Starting...");
+Console.WriteLine("Press any key to continue...");
+Console.ReadKey();
+// --- Invoke the REST API via the generated client ---
+try
 {
-    static async Task Main(string[] args)
+    // "MyApiClient" is assumed to be the generated client class from NSwag.
+    // The constructor and methods depend on the generated code.
+
+    //create HttpClient
+    HttpClient httpClient = new HttpClient();
+
+    var apiClient = new Client("https://localhost:7217", httpClient);
+    var request = new WeatherForecastRequest() { StartDate = DateTime.Now };
+    var values = await apiClient.GetWeatherForecastAsync(request); // or your specific API method
+    Console.WriteLine("REST API call results:");
+    foreach (var value in values)
     {
-        Console.WriteLine("Demo Client Starting...");
-
-        // --- Invoke the REST API via the generated client ---
-        try
-        {
-            // "MyApiClient" is assumed to be the generated client class from NSwag.
-            // The constructor and methods depend on the generated code.
-            var apiClient = new MyApiClient("http://localhost:5000");
-            var values = await apiClient.GetWeatherForecastAsync(); // or your specific API method
-            Console.WriteLine("REST API call results:");
-            foreach (var value in values)
-            {
-                Console.WriteLine(value);
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("Error calling REST API: " + ex.Message);
-        }
-
-        // --- Invoke the SOAP service via the generated proxy ---
-        try
-        {
-            // Here we assume the generated proxy is called "CalculatorServiceClient"
-            // Create an instance with a BasicHttpBinding and EndpointAddress.
-            var binding = new BasicHttpBinding();
-            var endpoint = new EndpointAddress("http://localhost:5001/CalculatorService");
-            var soapClient = new CalculatorServiceClient(binding, endpoint);
-
-            // Call the Add method (synchronous or asynchronous; adjust depending on generated code)
-            int sum = await soapClient.AddAsync(3, 5);
-            Console.WriteLine($"SOAP service result: 3 + 5 = {sum}");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("Error calling SOAP service: " + ex.Message);
-        }
-
-        Console.WriteLine("Demo Client Completed.");
+        Console.WriteLine(value.Summary);
     }
 }
+catch (Exception ex)
+{
+    Console.WriteLine("Error calling REST API: " + ex.Message);
+}
+
+// --- Invoke the SOAP service via the generated proxy ---
+try
+{
+    // Here we assume the generated proxy is called "CalculatorServiceProxy"
+    // Create an instance with a BasicHttpBinding and EndpointAddress.
+    var binding = new BasicHttpBinding(BasicHttpSecurityMode.Transport);
+    var endpoint = new EndpointAddress("https://localhost:7296/CalculatorService.svc");
+    var soapClient = new DemoClient.SoapProxies.CalculatorClient(binding, endpoint);
+
+    // Call the Add method (synchronous or asynchronous; adjust depending on generated code)
+    int sum = await soapClient.AddAsync(3, 5);
+    Console.WriteLine($"SOAP service result: 3 + 5 = {sum}");
+}
+catch (Exception ex)
+{
+    Console.WriteLine("Error calling SOAP service: " + ex.Message);
+}
+
+Console.WriteLine("Demo Client Completed.");
 ```
 
 > **Important:** The names of the generated classes and their methods depend on the specific Swagger and WSDL definitions. Adjust the code accordingly if they differ.
-
----
 
 ## 5. Running the Demo
 
@@ -305,8 +301,6 @@ class Program
 
 3. **Test the Client:**
    - Build and run **DemoClient**. You should see output from both the REST API call and the SOAP service call.
-
----
 
 ## 6. Additional Customizations
 
@@ -327,7 +321,4 @@ class Program
   pause
   ```
 
----
-
 By following these steps, you now have a demonstration app that illustrates how to use command-line scripts to generate both API and web service proxies and consume them from a client project.
-```
