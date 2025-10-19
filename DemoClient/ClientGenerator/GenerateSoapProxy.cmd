@@ -21,7 +21,7 @@ if exist "SoapProxies\%BaseFile%.cs" (
 )
 
 :: Generate the SOAP client proxy using the downloaded WSDL file
-dotnet-svcutil "%WsdlFile%" ^
+dotnet-svcutil "%ServiceUrl%" ^
   --outputDir "SoapProxies" ^
   --namespace "*,DemoClient.SoapProxies" ^
   --targetFramework net8.0 ^
