@@ -1,13 +1,8 @@
-# Walkthrough 
+# Proxy Client Generator
+
 Demonstration of a .NET solution that shows how to use command scripts to generate both REST API proxies (using NSwag) and SOAP service proxies (using the .NET Core version of SvcUtil) for a server–client scenario. 
 
-In this demo, we create three projects:
-
-- **ApiServer** – an ASP.NET Core Web API with Swagger enabled.
-- **SoapServer** – a simple SOAP service using CoreWCF.
-- **DemoClient** – a Console App that consumes both the generated API client and SOAP service proxy.
-
-# Demo: Generating API and SOAP Proxies with .NET
+## Demo: Generating API and SOAP Proxies with .NET
 
 This demo creates a .NET solution with:
 - An **ApiServer** project exposing REST endpoints (with Swagger),
