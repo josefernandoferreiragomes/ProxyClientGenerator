@@ -333,3 +333,7 @@ Console.WriteLine("Demo Client Completed.");
   ```
 
 By following these steps, you now have a demonstration app that illustrates how to use command-line scripts to generate both API and web service proxies and consume them from a client project.
+
+Further improvements:
+Download the json an wsdl files locally before generating the proxies, for auditing purposes.
+Provide commands to install dotnet-svcutil and nswag if not already installed.
